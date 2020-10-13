@@ -26,11 +26,6 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
-    print ''' 
-
-      CREATE METHOD CALLED
-
-    '''
     product = Product.find(params[:product_id]) 
     @line_item = @cart.add_product(product)
 
@@ -62,26 +57,10 @@ class LineItemsController < ApplicationController
 
   # DELETE /line_items/1
   # DELETE /line_items/1.json
-  
-  # def destroy
-  #   @line_item.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to line_items_url, notice: 'Line item was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
-  
   def destroy
-    print ''' 
-
-      DESTROY METHOD CALLED
-
-    '''
-    print " params: #{params}"
     product = LineItem.find(params[:id]).product
-    print " PRODUCT: #{product}"
     @line_item = @cart.minus_one_product(product)
-    print " @line_item: #{@line_item}"
+
     respond_to do |format|
       if !!@line_item 
         if @line_item.save
