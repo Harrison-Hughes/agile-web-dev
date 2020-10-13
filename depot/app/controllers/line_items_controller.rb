@@ -77,16 +77,24 @@ class LineItemsController < ApplicationController
       DESTROY METHOD CALLED
 
     '''
-    product = Product.find(params[:product_id])
+    print " params: #{params}"
+    product = LineItem.find(params[:id]).product
+    print " PRODUCT: #{product}"
     @line_item = @cart.minus_one_product(product)
-
+    print " @line_item: #{@line_item}"
     respond_to do |format|
       if !!@line_item 
-        format.html { redirect_to store_index_url}
-        format.js { @current_item = @line_item }
-        format.json { head :no_content }
+        if @line_item.save
+          format.html { redirect_to store_index_url}
+          format.js { @current_item = @line_item }
+          format.json { head :no_content }
+        else
+          format.html { render :new }
+          format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        end
       else 
         format.html { redirect_to store_index_url, notice: 'Line item was successfully destroyed.' }
+        format.js
         format.json { head :no_content }
       end
     end
