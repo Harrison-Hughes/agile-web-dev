@@ -62,6 +62,7 @@ class LineItemsController < ApplicationController
 
   # DELETE /line_items/1
   # DELETE /line_items/1.json
+  
   # def destroy
   #   @line_item.destroy
   #   respond_to do |format|
@@ -74,7 +75,7 @@ class LineItemsController < ApplicationController
     print ''' 
 
       DESTROY METHOD CALLED
-      
+
     '''
     product = Product.find(params[:product_id])
     @line_item = @cart.minus_one_product(product)
