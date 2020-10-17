@@ -10,11 +10,13 @@ Rails.application.routes.draw do
   get 'admin/index'
   resources :users
 
+  resources :support_requests, only: [ :index, :update ]
+
   scope '(:locale)' do
     resources :orders
     resources :line_items
     resources :carts
-    root 'store#index', as: 'store_index'
+    root 'store#index', as: 'store_index', via: :all
   end
   
   resources :products do
