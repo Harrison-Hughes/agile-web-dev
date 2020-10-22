@@ -34,3 +34,7 @@ end
 When /^I guess "([^"]*)"$/ do |guess| 
   @game.guess(guess)
 end
+
+Then /^the mark should be "([^"]*)"$/ do |mark| 
+  expect(@messenger.string.split("\n", -1)).to include(mark)
+end
